@@ -1,0 +1,207 @@
+/* Reset base styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Full screen section with background image */
+.main-content {
+  height: 100vh;
+  background: url('/Types Of Residential Properties.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.top-bar1 {
+  position: fixed !important;
+  width: 100% !important;
+  height: 100px !important;
+  background-color: #1a73e8 !important;
+  color: white !important;
+  display: flex !important;;
+  align-items: center !important;;
+  justify-content: center !important;; /* keeps title centered */
+  z-index: 9999;
+}
+
+/* Right navigation */
+.nav {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav a {
+  text-decoration: none;
+  color: white;
+  font-size: larger;
+  margin-left: 20px;
+  z-index:9999;
+}
+
+/* Top right contact link */
+#contact1 {
+  text-decoration: none;
+  position: absolute;
+  top: 39px;
+  color: white;
+  font-size: larger;
+  right: 20px;
+}
+
+/* Centered white box */
+.container2 {
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  width: 300px;
+  text-align: center;
+  border: 2px solid #1a73e8;
+}
+
+.top-bar7 {
+ position: fixed;
+ top:0;
+  width: 100%;
+  height: 100px; 
+  background-color: #1a73e8;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; 
+}
+
+
+/* Input field styling */
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0 15px 0;
+  color: white;
+  background-color: #1a73e8;
+  border: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  color: white;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px;
+  margin: 20px;
+  background-color: #1a73e8;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+}
+
+.right-link {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.container1 {
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  width: 100%;
+  margin-left:50px;
+  margin-right:50px;
+  border: 2px solid #1a73e8;
+}
+
+.contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Mobile portrait */
+@media (max-width: 480px) {
+  .top-bar7 {
+    height: 60px;
+    font-size: 16px;
+    flex-direction: column; /* stack text if needed */
+    text-align: center;
+  }
+}
+
+    /* New property section styles */
+    .property-section {
+      margin: 40px 50px 50px 50px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid #1a73e8;
+    }
+
+    #searchInput {
+      width: 80%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 150px;
+      margin-left:130px;
+      border: none;
+      border-radius: 6px;
+      background-color: #1a73e8;
+      color: white;
+    }
+
+    #searchInput::placeholder {
+      color: white;
+    }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #1a73e8;
+    }
+
+    .card p {
+      margin: 8px 0;
+      color: #555;
+    }
+
+    @media (max-width: 768px) {
+      .property-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .property-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+  

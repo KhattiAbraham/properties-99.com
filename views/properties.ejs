@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Property Listings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar7">
+    <h2>properties99.com</h2>
+  </div>
+
+  <input type="text" id="searchInput" placeholder="Search by name or location..." onkeyup="filterProperties()" /> 
+  
+  <div class="property-section">
+    
+    <div id="propertyGrid" class="property-grid"></div>
+  </div> 
+
+  <script>
+    const properties = [
+      { name: "Green Villa", location: "Mumbai", price: "₹75,00,000" },
+      { name: "Ocean Breeze", location: "Goa", price: "₹1,20,00,000" },
+      { name: "Hilltop Haven", location: "Lonavala", price: "₹95,00,000" },
+      { name: "City Nest", location: "Pune", price: "₹65,00,000" },
+      { name: "Palm Retreat", location: "Kerala", price: "₹1,10,00,000" },
+      { name: "Skyline Heights", location: "Delhi", price: "₹1,50,00,000" }
+    ];
+
+    function displayProperties(list) {
+      const grid = document.getElementById("propertyGrid");
+      grid.innerHTML = "";
+      list.forEach(prop => {
+        grid.innerHTML += `
+          <div class="card">
+            <h3>${prop.name}</h3>
+            <p><strong>Location:</strong> ${prop.location}</p>
+            <p><strong>Price:</strong> ${prop.price}</p>
+          </div>
+        `;
+      });
+    }
+
+    function filterProperties() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = properties.filter(p =>
+        p.name.toLowerCase().includes(query) ||
+        p.location.toLowerCase().includes(query)
+      );
+      displayProperties(filtered);
+    }
+
+    // Initial display
+    displayProperties(properties);
+  </script>
+
+</body>
+</html>
