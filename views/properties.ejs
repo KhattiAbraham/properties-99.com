@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Property Listings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
   
 </head>
 <body>
@@ -31,13 +31,15 @@
       { name: "Skyline Heights", location: "Delhi", price: "₹1,50,00,000" }
     ];
 
+    const allListings = <%- JSON.stringify(allListings) %>
+
     function displayProperties(list) {
       const grid = document.getElementById("propertyGrid");
       grid.innerHTML = "";
       list.forEach(prop => {
         grid.innerHTML += `
           <div class="card">
-            <h3>${prop.name}</h3>
+            <h3>${prop.title}</h3>
             <p><strong>Location:</strong> ${prop.location}</p>
             <p><strong>Price:</strong> ${prop.price}</p>
           </div>
@@ -55,7 +57,7 @@
     }
 
     // Initial display
-    displayProperties(properties);
+    displayProperties(allListings);
   </script>
 
 </body>
