@@ -8,11 +8,9 @@ app.use(express.json())
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true}))
+require.dotenv('config')
 
-
-const uri = "mongodb+srv://abrahamkhatti:k123y@cluster0.wqncw6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
-mongoose.connect(uri, {
+mongoose.connect(process.env.MONG_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
