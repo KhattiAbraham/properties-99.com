@@ -8,10 +8,9 @@ app.use(express.json())
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true}))
+require('dotenv').config()
 
-
-const uri = "mongodb+srv://abrahamkhatti:k123y@cluster0.wqncw6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
+const uri = "mongodb+srv://abrahamkhatti:mnv700@cluster0.wqncw6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -75,7 +74,6 @@ app.post("/create-listings/:id", async (req, res) => {
 
 app.get("/my-listings/:id", async(req,res)=>{
   let allListings = await propertyModel.find({ owner: req.params.id})
-  console.log(allListings)
   res.render("properties", {allListings})
 })
 
@@ -85,7 +83,7 @@ app.post("/customer-login", async (req, res) => {
     const user = await customerModel.findOne({ phone });
     if(user)
     {
-      res.redirect("/available-properties")
+      res.redirect(`/customer-dashboard/${user._id}`)
     }
     else{
       res.status(500).send("User Not Found")
@@ -94,6 +92,43 @@ app.post("/customer-login", async (req, res) => {
     console.error(err);
   }
 });
+
+app.get("/properties/delete/:id", async (req, res) => {
+  try {
+    const deletedProperty = await propertyModel.findByIdAndDelete(req.params.id);
+    if (!deletedProperty) {
+      return res.status(404).send("Property not found");
+    }
+
+    const ownerId = deletedProperty.owner; // assuming 'owner' is a field in the property schema
+    res.redirect(`/my-listings/${ownerId}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+app.get("/properties/update/:id", (req,res)=>{
+  res.render('update-property', {id: req.params.id})
+})
+
+app.post("/properties/update/:id", async (req,res)=>{
+   const property = await propertyModel.findById(req.params.id);
+    const ownerId = property.owner;
+    const updateProperty = await propertyModel.findByIdAndUpdate(req.params.id, {
+    title: req.body.title,
+    location: req.body.location,
+    price: req.body.price,
+    owner: ownerId
+  })
+
+  res.redirect(`/my-listings/${ownerId}`)
+})
+
+app.get("/customer-dashboard/:id", async (req,res)=>{
+  const allProperties = await propertyModel.find()
+  res.render("customer-dashboard", {allProperties, userId: req.params.id})
+})
 
 app.get("/customer-login", (req, res)=>{
     res.render('customer-login')

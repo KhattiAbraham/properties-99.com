@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -31,7 +31,7 @@
       { name: "Skyline Heights", location: "Delhi", price: "₹1,50,00,000" }
     ];
 
-    const allListings = <%- JSON.stringify(allListings) %>
+    const allListings = <%- JSON.stringify(allProperties) %>
 
     function displayProperties(list) {
       const grid = document.getElementById("propertyGrid");
@@ -42,8 +42,6 @@
             <h3>${prop.title}</h3>
             <p><strong>Location:</strong> ${prop.location}</p>
             <p><strong>Price:</strong> ${prop.price}</p>
-             <a href="/properties/update/${prop._id}" class="btn">Update</a>
-            <a href="/properties/delete/${prop._id}" class="btn">Delete</a>
           </div>
         `;
       });
