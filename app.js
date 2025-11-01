@@ -11,7 +11,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true}))
 require('dotenv').config()
 
-const uri = "mongodb+srv://abrahamkhatti:@cluster0.wqncw6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
