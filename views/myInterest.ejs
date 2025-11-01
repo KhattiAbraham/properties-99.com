@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Property Listings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+  
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar7">
+    <h2>properties99.com</h2>
+    <div class="nav">
+        <a href = "/customer-dashboard/<%= userId %>">Back</a>
+    </div>
+  </div>
+
+  <input type="text" id="searchInput" placeholder="Search by name or location..." onkeyup="filterProperties()" /> 
+  
+  <div class="property-section">
+    <% myInterests.forEach(interest => { %>
+
+     <div class="card">
+          <h3><%= interest.property.title || "Untitled Property" %></h3>
+          <p><strong>Owner:</strong> <%= interest.owner.phone || "Unknown Owner" %></p>
+        </div>
+    <% }) %>
+    </div>
+  </div> 
+
+  
+</body>
+</html>

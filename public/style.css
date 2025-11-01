@@ -147,6 +147,14 @@ input::placeholder {
       border: 2px solid #1a73e8;
     }
 
+    .property-section2 {
+      margin: 150px 50px 50px 50px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid #1a73e8;
+    }
+
     #searchInput {
       width: 80%;
       padding: 12px;

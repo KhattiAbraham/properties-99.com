@@ -4,13 +4,14 @@ let app = express()
 let ownerModel = require('./models/ownerModel')
 let customerModel = require('./models/customerModel')
 const propertyModel = require('./models/propertyModel')
+const interestModel = require('./models/interest')
 app.use(express.json())
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true}))
 require('dotenv').config()
 
-const uri = "mongodb+srv://abrahamkhatti:mnv700@cluster0.wqncw6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const uri = "mongodb+srv://abrahamkhatti:@cluster0.wqncw6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -180,6 +181,63 @@ app.get("/contact", (req, res)=>{
     res.render('contact')
 })
 
+app.get("/view-participants", (req,res)=>{
+  res.render('admin-login')
+})
+
+app.post("/view-participants", async (req,res)=>{
+  const { username, phone } = req.body;
+    const user = await customerModel.findOne({ phone });
+    if(user)
+    {
+      const allOwners = await ownerModel.find();
+      const allCustomers = await customerModel.find()
+      res.render('view-event', {allOwners, allCustomers})
+    }
+    else{
+      res.status(500).send("User Not Found")
+    }
+})
+
+app.get("/interested/:propertyId/:userId", async (req, res) => {
+  try {
+    const { propertyId, userId } = req.params;
+
+    // ✅ Check if the property exists
+    const property = await propertyModel.findById(propertyId);
+    if (!property) {
+      return res.status(404).send("Property not found");
+    }
+
+    // ✅ Check if this user already expressed interest
+    const newInterest = await interestModel.create({
+      owner: property.owner,
+      customer: userId,
+      property: propertyId,
+    });
+
+    res.redirect(`/customer-dashboard/${userId}`)
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error while recording interest");
+  }
+});
+
+app.get("/my-interest/:id", async (req, res)=>{
+  const myInterests = await interestModel
+      .find({ customer: req.params.id })
+      .populate("owner", "phone") // fetch only 'name' from owner collection
+      .populate("property", "title")
+  res.render("myInterest", {myInterests, userId: req.params.id})
+})
+
+app.get("/interested-in-property/:id", async (req, res)=>{
+  const myInterests = await interestModel
+      .find({ owner: req.params.id })
+      .populate("customer", "phone") // fetch only 'name' from owner collection
+      .populate("property", "title")
+  res.render("ownerInterest", {myInterests, ownerId: req.params.id})
+})
 app.listen(3000, ()=>
 {
     console.log("Server Connected!")

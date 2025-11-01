@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Property Listings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+  
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar7">
+    <h2>properties99.com</h2>
+  </div>
+<div class="property-section2">
+  <div id="customerGrid" class="property-grid"></div>
+</div>
+
+  <script>
+
+    const allOwners = <%- JSON.stringify(allOwners) %>
+    const allCustomers = <%- JSON.stringify(allCustomers) %>
+
+    const allUsers = allOwners.concat(allCustomers); 
+
+function displayProperties(list, targetId) {
+  const grid = document.getElementById(targetId);
+  grid.innerHTML = "";
+  list.forEach(prop => {
+    grid.innerHTML += `
+      <div class="card">
+        <h3>${prop.username}</h3>
+        <p><strong>Phone:</strong> ${prop.phone}</p>
+      </div>
+    `;
+  });
+}
+
+// Initial display
+displayProperties(allUsers, "customerGrid");
+
+</script>
+
+</body>
+</html>

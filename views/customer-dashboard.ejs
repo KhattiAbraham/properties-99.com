@@ -12,6 +12,9 @@
   <!-- Top Bar -->
   <div class="top-bar7">
     <h2>properties99.com</h2>
+    <div class="nav">
+        <a href = "/my-interest/<%= userId %>">My Interest</a>
+    </div>
   </div>
 
   <input type="text" id="searchInput" placeholder="Search by name or location..." onkeyup="filterProperties()" /> 
@@ -32,6 +35,10 @@
     ];
 
     const allListings = <%- JSON.stringify(allProperties) %>
+    const userId = "<%= userId %>";
+
+    console.log(userId)
+
 
     function displayProperties(list) {
       const grid = document.getElementById("propertyGrid");
@@ -42,6 +49,7 @@
             <h3>${prop.title}</h3>
             <p><strong>Location:</strong> ${prop.location}</p>
             <p><strong>Price:</strong> ${prop.price}</p>
+            <a href="/interested/${prop._id}/${userId}" class="btn">Interested</a> 
           </div>
         `;
       });
